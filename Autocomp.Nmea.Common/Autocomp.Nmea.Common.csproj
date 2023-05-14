@@ -41,7 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Messages\Gll.cs" />
+    <Compile Include="Messages\Mwv.cs" />
     <Compile Include="NmeaCrcCalculator.cs" />
+    <Compile Include="NmeaParser.cs" />
     <Compile Include="NmeaFormat.cs" />
     <Compile Include="NmeaMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
