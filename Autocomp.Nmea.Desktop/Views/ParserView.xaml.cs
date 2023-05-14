@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Autocomp.Nmea.Desktop
+namespace Autocomp.Nmea.Desktop.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for ParserView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ParserView : Window
     {
-        public MainWindow()
+        public ParserView()
         {
             InitializeComponent();
         }
