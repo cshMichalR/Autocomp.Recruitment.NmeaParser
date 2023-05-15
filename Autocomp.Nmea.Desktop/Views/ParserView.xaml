@@ -17,6 +17,10 @@
 
     <Window.Resources>
         <vc:BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
+        <vc:LatitudeDoubleToStringConverter x:Key="LatitudeDoubleToString"/>
+        <vc:LongitudeDoubleToStringConverter x:Key="LongitudeDoubleToString"/>
+        <vc:TimeSpanToStringConverter x:Key="TimeSpanToString"/>
+        <vc:DegreesDoubleToStringConverter x:Key="DegreesDoubleToString"/>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -30,43 +34,38 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
- 
+
         <!--Pasek z tytułem-->
         <Border Margin="2,0,2,0" BorderThickness="0,0,0,2" Grid.Row="0" Grid.ColumnSpan="2" BorderBrush="Black">
             <Label HorizontalAlignment="Center" Padding="0,0,2,0" FontSize="19" FontWeight="Bold">NMEA Parser</Label>
         </Border>
 
-
-
-
-
         <!--Formularz z wiadomościa do parsowania-->
         <Border Margin="10" BorderBrush="Black"  BorderThickness="1" Grid.Column="1" Grid.Row="1">
-
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width=".5*"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0">
-                        <Label HorizontalAlignment="Center">Predefiniowane komunikaty:</Label>
-                        <Button Command="{Binding SetPredefiniedMessageCommand}" CommandParameter="1" Margin="2">Komunikat 1</Button>
+                    <Label HorizontalAlignment="Center">Predefiniowane komunikaty:</Label>
+                    <Button Command="{Binding SetPredefiniedMessageCommand}" CommandParameter="1" Margin="2">Komunikat 1</Button>
                     <Button Command="{Binding SetPredefiniedMessageCommand}" CommandParameter="2" Margin="2">Komunikat 2</Button>
                     <Button Command="{Binding SetPredefiniedMessageCommand}" CommandParameter="3" Margin="2">Komunikat 3</Button>
                     <Button Command="{Binding SetPredefiniedMessageCommand}" CommandParameter="4" Margin="2">Komunikat 4</Button>
-                    </StackPanel>
+                </StackPanel>
                 <StackPanel  Grid.Column="1" HorizontalAlignment="Stretch">
                     <Label HorizontalAlignment="Center" FontWeight="Bold">Komunikat NMEA</Label>
                     <TextBox MaxLines="1" Text="{Binding UserMessage,UpdateSourceTrigger=PropertyChanged}" MaxWidth="300" Margin="15,5"></TextBox>
-   
+
                     <Label HorizontalAlignment="Center" Foreground="Red" Content="{Binding ErrorMessage}"></Label>
                     <Button Command="{Binding ParseCommand}" MaxWidth="150" Margin="0,5">Parsuj</Button>
                     <Button Command="{Binding CalculateCrcCommand}" MaxWidth="150" >Oblicz sumę kontorlną</Button>
 
-                    </StackPanel>
+                </StackPanel>
 
             </Grid>
-  
+
         </Border>
 
         <!--Ustawienia parsowania-->
@@ -112,7 +111,7 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label>Szerokość:</Label>
-                    <Label Content="{Binding Latitude}"></Label>
+                    <Label Content="{Binding Latitude,Converter={StaticResource LatitudeDoubleToString}}"></Label>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label>Szerokość kierunek:</Label>
@@ -120,7 +119,7 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label >Długość:</Label>
-                    <Label Content="{Binding Longitude}"></Label>
+                    <Label Content="{Binding Longitude,Converter={StaticResource LongitudeDoubleToString}}"></Label>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label >Długość kierunek:</Label>
@@ -128,7 +127,7 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label >Czas UTC:</Label>
-                    <Label Content="{Binding PositionUtc}"/>
+                    <Label Content="{Binding PositionUtc,Converter={StaticResource TimeSpanToString}}" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label >Status:</Label>
@@ -140,6 +139,7 @@
                 </StackPanel>
             </StackPanel>
         </Border>
+        
         <!--Prezentacja wiadomośći typu MWV-->
         <Border Visibility="{Binding MwvVisible,Converter={StaticResource BoolToVisibility}}" Height="250"  CornerRadius="2" BorderThickness="1" BorderBrush="Black" Background="#06418f" MaxWidth="250" Margin="10" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="2">
             <StackPanel DataContext="{Binding MwvMessage}">
@@ -157,7 +157,7 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label >Wiatr kąt:</Label>
-                    <Label Content="{Binding WindAngle}"></Label>
+                    <Label Content="{Binding WindAngle,Converter={StaticResource DegreesDoubleToString}}"></Label>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label>Referencja:</Label>
@@ -180,8 +180,7 @@
 
 
         <!--Pasek dolny-->
-        <Border Margin="2,0,1,0" BorderThickness="0,0,0,2" Grid.Row="2" Grid.ColumnSpan="2" BorderBrush="Black">
-           
-        </Border>
+        <Border Margin="2,0,1,0" BorderThickness="0,0,0,2" Grid.Row="2" Grid.ColumnSpan="2" BorderBrush="Black"/>
+        
     </Grid>
 </Window>

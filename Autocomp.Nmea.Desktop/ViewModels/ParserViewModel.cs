@@ -112,10 +112,10 @@ namespace Autocomp.Nmea.Desktop.ViewModels
             switch (messageNum)
             {
                 case "1":
-                    UserMessage = new NmeaMessage("--GLL", new string[] { "5528.58", "N", "1835.16", "E", "162301.25", "A", "D" },format).ToString();
+                    UserMessage = new NmeaMessage("--GLL", new string[] { "5528.58", "N", "12335.16", "E", "162301.25", "A", "D" },format).ToString();
                     break;
                 case "2":
-                    UserMessage = new NmeaMessage("--GLL", new string[] { "2528.38", "S", "1335.16", "W", "112301.25", "A", "A" },format).ToString();
+                    UserMessage = new NmeaMessage("--GLL", new string[] { "2528.38", "S", "11005.16", "W", "112301.25", "A", "A" },format).ToString();
                     break;
                 case "3":
                     UserMessage = new NmeaMessage("--MWV", new string[] { "120.5", "R", "50.5", "K", "A" },format).ToString();
