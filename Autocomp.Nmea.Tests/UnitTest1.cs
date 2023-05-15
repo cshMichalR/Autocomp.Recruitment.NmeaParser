@@ -13,9 +13,7 @@ namespace Autocomp.Nmea.Tests
         {
 
         }
-        /// <summary>
-        /// Test weryfikuj¹cy, czy parser w przypadku wiadomoœci z nieobs³ugiwanym nag³ówkiem zwróci ArgumentException. 
-        /// </summary>
+
         [Test]
         public void Parse_WrongHeader_ThrowsArgumentException()
         {
@@ -23,9 +21,7 @@ namespace Autocomp.Nmea.Tests
                 new string[] { "5528.58", "N", "1835.16", "E", "110501.35", "A" });
             Assert.Throws<ArgumentException>(() => NmeaParser.Parse(messageWithNotImplementedHeader));
         }
-        /// <summary>
-        /// Test weryfikuj¹cy poprawnoœæ parsowania porównuj¹c wynik parsowania ze zdefiniowanym obiektem.
-        /// </summary>
+
         [Test]
         public void Parse_CorrectGllMessage_CompareWithDefinedResult_ShouldBeEqual()
         {
@@ -45,9 +41,7 @@ namespace Autocomp.Nmea.Tests
 
             parseResult.Should().BeEquivalentTo(excpectedResult);
         }
-        /// <summary>
-        /// Test weryfikuj¹cy poprawnoœæ parsowania porównuj¹c wynik parsowania ze zdefiniowanym obiektem.
-        /// </summary>
+
         [Test]
         public void Parse_CorrectMWVMessage_CompareWithDefinedResult_ShouldBeEqual()
         {
@@ -64,9 +58,7 @@ namespace Autocomp.Nmea.Tests
 
             parseResult.Should().BeEquivalentTo(excpectedResult);
         }
-        /// <summary>
-        /// Weryfikuje, czy parser zwróci argument exception w przypadku wiadomoœci o nieodpowiedniej iloœci pól.
-        /// </summary>
+
         [Test]
         public void Parse_MWVMessageWithInvalidFieldsLength_ThrowsArgumentException()
         {
@@ -74,9 +66,7 @@ namespace Autocomp.Nmea.Tests
             new string[] { "126.5", "R", "56.5", "K", "A","AdditionalField" });
             Assert.Throws<ArgumentException>(()=>NmeaParser.Parse(nmeaMessage));
         }
-        /// <summary>
-        /// Weryfikuje, czy parser zwróci argument exception w przypadku wiadomoœci o nieodpowiedniej iloœci pól.
-        /// </summary>
+
         [Test]
         public void Parse_GLLMessageWithInvalidFieldsLength_ThrowsArgumentException()
         {
@@ -84,6 +74,73 @@ namespace Autocomp.Nmea.Tests
             var nmeaMessage = new NmeaMessage("GLL",
              new string[] { "5528.58", "N", "1835.16", "162301.25", "A", "D" });
             Assert.Throws<ArgumentException>(() => NmeaParser.Parse(nmeaMessage));
+        }
+
+        [Test]
+        public void Parse_Latitude_CompareWithCorrectValue_1()
+        {
+            var parsedLatitude=NmeaParser.LatitudeToString(0232.12);
+            var correctLatitude = "02°19'16.3''";
+            Assert.IsTrue(parsedLatitude == correctLatitude);
+        }
+        [Test]
+        public void Parse_Latitude_CompareWithCorrectValue_2()
+        {
+            var parsedLatitude = NmeaParser.LatitudeToString(0.0);
+            var correctLatitude = "00°00'00.0''";
+            Assert.IsTrue(parsedLatitude == correctLatitude);
+        }
+        [Test]
+        public void Parse_Latitude_CompareWithCorrectValue_3()
+        {
+            var parsedLatitude = NmeaParser.LatitudeToString(-0232.12);
+            var correctLatitude = "-02°19'16.3''";
+            Assert.IsTrue(parsedLatitude == correctLatitude);
+        }
+        [Test]
+        public void Parse_Longitude_CompareWithCorrectValue_1()
+        {
+            var parsedLongitude = NmeaParser.LongitudeToString(12350.32);
+            var correctLongitude = "123°30'11.5''";
+            Assert.IsTrue(parsedLongitude == correctLongitude);
+        }
+        [Test]
+        public void Parse_Longitude_CompareWithCorrectValue_2()
+        {
+            var parsedLongitude = NmeaParser.LongitudeToString(0.0);
+            var correctLongitude = "000°00'00.0''";
+            Assert.IsTrue(parsedLongitude == correctLongitude);
+        }
+        [Test]
+        public void Parse_Longitude_CompareWithCorrectValue_3()
+        {
+            var parsedLongitude = NmeaParser.LongitudeToString(-12350.32);
+            var correctLongitude = "-123°30'11.5''";
+            Assert.IsTrue(parsedLongitude == correctLongitude);
+        }
+
+        [Test]
+        public void Parse_Degrees_CompareWithCorrectValue_1()
+        {
+            var parsedDegrees = NmeaParser.DegreesToString(320.5);
+            var correctDegrees = "320°30'";
+            Assert.IsTrue(parsedDegrees == correctDegrees);
+        }
+
+        [Test]
+        public void Parse_Degrees_CompareWithCorrectValue_2()
+        {
+            var parsedDegrees = NmeaParser.DegreesToString(-121.3);
+            var correctDegrees = "-121°18'";
+            Assert.IsTrue(parsedDegrees == correctDegrees);
+        }
+
+        [Test]
+        public void Parse_Degrees_CompareWithCorrectValue_3()
+        {
+            var parsedDegrees = NmeaParser.DegreesToString(-0.0);
+            var correctDegrees = "0°0'";
+            Assert.IsTrue(parsedDegrees == correctDegrees);
         }
     }
 }
