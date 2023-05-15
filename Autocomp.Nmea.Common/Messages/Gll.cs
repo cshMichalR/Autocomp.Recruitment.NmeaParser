@@ -24,6 +24,7 @@ namespace Autocomp.Nmea.Common.Messages
         }
 
 
+
         public string LatitudeDirection
         {
             get => latitudeDirection;
@@ -49,7 +50,7 @@ namespace Autocomp.Nmea.Common.Messages
             {
                 if (value > 18000 || value < -18000)
                 {
-                    throw new NotSupportedException("Niepoprawna długość geograficzna.");
+                    throw new NotSupportedException("Niepoprawna długość geograficzna. Nie może być ona większa od 180 stopni.");
                 }
                 else
                 {
